@@ -225,6 +225,9 @@ tasks.register('run', JavaExec) {
     workingDir = gameDir
     jvmArgs "-Drise.gameDir=${gameDir}",
             "-Djava.library.path=${new File(gameDir, 'natives')}"
+    if (mojangOs == 'osx') {
+        jvmArgs '-XstartOnFirstThread'
+    }
 
     doFirst {
         if (!gameDir.isDirectory() || !new File(gameDir, 'natives').isDirectory()) {
