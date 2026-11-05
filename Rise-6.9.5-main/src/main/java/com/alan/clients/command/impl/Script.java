@@ -26,7 +26,7 @@ public final class Script extends Command {
     @Override
     public void execute(String[] var1) {
         if (var1.length < 2) {
-            this.error("Valid actions are load, reload, unload, disablesecurity, folder and enablesecurity");
+            this.error("Valid actions are load, reload, unload, folder and enablesecurity");
         } else {
             String s = var1[1].toLowerCase(Locale.getDefault());
             ScriptManager scriptmanager = Client.a.getScriptManager();
@@ -42,9 +42,9 @@ public final class Script extends Command {
             }
 
             try {
-                label108: {
+                {
                     label122: {
-                        label125: {
+                        {
                             label103: {
                                 label102: {
                                     label101: {
@@ -57,13 +57,12 @@ public final class Script extends Command {
                                                     break label102;
                                                 case "unload":
                                                     break label101;
-                                                case "disablesecurity":
-                                                    break label108;
                                                 case "enablesecurity":
                                                     break label122;
                                                 case "download":
                                                 case "install":
-                                                    break label125;
+                                                    ChatUtil.b("Remote script installation is disabled for safety.");
+                                                    return;
                                                 case "folder":
                                                     try {
                                                         Desktop desktop = Desktop.getDesktop();
@@ -78,7 +77,7 @@ public final class Script extends Command {
                                                 default:
                                                     ChatUtil.b(
                                                         "command.script.unknownaction",
-                                                        "Valid actions are load, reload, unload, disablesecurity and enablesecurity"
+                                                        "Valid actions are load, reload, unload, folder and enablesecurity"
                                                     );
                                                     return;
                                             }
@@ -108,50 +107,12 @@ public final class Script extends Command {
                             return;
                         }
 
-                        //add code
-                        if (!NetworkToggles.remoteScripts()) {
-                            ChatUtil.b("Remote script download is off (plain HTTP to a bare IP).");
-                            ChatUtil.b("Start the client with -Drise.net.remotescripts=true to allow it.");
-                            return;
-                        }
-
-                        new Thread(
-                                () -> {
-                                    try {
-                                        HttpURLConnection httpurlconnection = (HttpURLConnection)new URL("http://165.22.2.247/getscript?id=" + var1[2])
-                                            .openConnection();
-                                        httpurlconnection.addRequestProperty(
-                                            "User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0"
-                                        );
-                                        httpurlconnection.addRequestProperty("rise", ">astolfo");
-                                        BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(httpurlconnection.getInputStream()));
-                                        ArrayList arraylist = new ArrayList();
-
-                                        String s2;
-                                        while ((s2 = bufferedreader.readLine()) != null) {
-                                            arraylist.add(s2);
-                                        }
-
-                                        new ConfigFile(new File(ScriptManager.SCRIPT_DIRECTORY + File.separator + var1[2] + ".js"), FileType.CONFIG, var1[2])
-                                            .a(ScriptManager.SCRIPT_DIRECTORY + File.separator + var1[2] + ".js", arraylist);
-                                        ChatUtil.b("Installed the Script!");
-                                        ChatUtil.b("Use .script reload, to reload scripts");
-                                    } catch (Throwable throwable) {
-                                        throwable.printStackTrace();
-                                    }
-                                }
-                            )
-                            .start();
-                        return;
                     }
 
                     scriptmanager.setSecurityMeasures(true);
                     ChatUtil.b("command.script.enablesecurity");
                     return;
                 }
-
-                scriptmanager.setSecurityMeasures(false);
-                ChatUtil.b("command.script.disablesecurity");
             } catch (Exception exception) {
                 exception.printStackTrace();
                 ChatUtil.b("Failed to " + s + " a script. Stacktrace printed.");

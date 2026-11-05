@@ -4,7 +4,6 @@ import com.alan.clients.util.account.auth.MicrosoftLogin;
 import com.alan.clients.util.web.Browser;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.alan.clients.util.account.dynamic.DynamicAccountApi;
 import java.io.IOException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
@@ -23,19 +22,6 @@ public final class SessionIdLogin {
         if (s.isEmpty()) {
             throw new IOException("Empty token");
         }
-        if (s.matches("^\\d+$")) {
-            String s1;
-            try {
-                s1 = DynamicAccountApi.am(Integer.parseInt(s));
-            } catch (NumberFormatException numberformatexception) {
-                throw new IOException("Invalid ref id", numberformatexception);
-            }
-            if (s1 == null || s1.trim().isEmpty()) {
-                throw new IOException("Invalid ref id");
-            }
-            s = s1.trim();
-        }
-
         try {
             String s2 = Browser.getBearerResponse(CLIENT_ID, s);
             if (s2 == null || s2.trim().isEmpty()) {

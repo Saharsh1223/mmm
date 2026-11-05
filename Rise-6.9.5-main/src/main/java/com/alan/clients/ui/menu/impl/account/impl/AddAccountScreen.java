@@ -26,11 +26,8 @@ import net.minecraft.util.ResourceLocation;
 public class AddAccountScreen extends GuiScreen implements InstanceAccess {
     private static final Font FONT_RENDERER = FontManager.MAIN.a(36, FontWeight.BOLD);
     private static final Font AD_FONT_RENDERER = FontManager.MAIN.a(16, FontWeight.REGULAR);
-    private static final Font DISCOUNT_FONT_RENDERER = FontManager.MAIN.a(14, FontWeight.BOLD);
-    private static final ResourceLocation XBOX_RESOURCE = new ResourceLocation("rise/images/xbox.png");
     private static final ResourceLocation MICROSOFT_RESOURCE = new ResourceLocation("rise/images/microsoft.png");
     private static final ResourceLocation CRACKED_RESOURCE = new ResourceLocation("rise/images/minecraft.png");
-    private static final ResourceLocation COOKIE_RESOURCE = new ResourceLocation("rise/images/Cookie.png");
     private static final ResourceLocation LOCALTS_RESOURCE = new ResourceLocation("rise/images/localts.png");
     private static final String AD_TEXT = "Need alts? Localts purchases in Rise are 5% off — Click here!";
     private static final String AD_URL = "https://localts.store/?campaign=rise";
@@ -52,10 +49,7 @@ public class AddAccountScreen extends GuiScreen implements InstanceAccess {
     private static final Runnable CANCEL_RUNNABLE = () -> aEg.displayGuiScreen(new AccountManagerScreen(reference));
     private static final Runnable CRACKED_RUNNABLE = () -> aEg.displayGuiScreen(new AddCrackedScreen());
     private static final Runnable MICROSOFT_RUNNABLE = () -> aEg.displayGuiScreen(new AddMicrosoftScreen());
-    private static final Runnable GAMEPASS_RUNNABLE = () -> aEg.displayGuiScreen(new AddSessionIDScreen());
-    private static final Runnable COOKIE_RUNNABLE = () -> aEg.displayGuiScreen(new AddCookieScreen());
-    private static final Runnable LOCALTS_RUNNABLE = () -> aEg.displayGuiScreen(new AddLocaltsScreen());
-    private final MenuIconTextButton[] menuButtons = new MenuIconTextButton[5];
+    private final MenuIconTextButton[] menuButtons = new MenuIconTextButton[2];
 
     private static float centeredTextY(double var0, double var2, Font var4) {
         return (float)(var0 + var2 / 2.0 - 4.0 * var4.height() / CENTER_REF_HEIGHT);
@@ -94,18 +88,6 @@ public class AddAccountScreen extends GuiScreen implements InstanceAccess {
             aadi[j].draw(var1, var2, var3);
         }
 
-        this.b(ShaderQueueType.REGULAR).c(() -> {
-            MenuIconTextButton adi = this.menuButtons[4];
-            if (adi != null) {
-                String s = "5% OFF";
-                float f = 16.0F;
-                float f1 = DISCOUNT_FONT_RENDERER.getStringWidth(s) + 16;
-                float f2 = (float)(adi.getX() + adi.oM() / 2.0 - f1 / 2.0F);
-                float f3 = (float)(adi.getY() + adi.da() - f - 10.0);
-                RenderUtil.roundedRectangle(f2, f3, f1, f, 7.0, new Color(38, 132, 93, 225));
-                DISCOUNT_FONT_RENDERER.drawString(s, f2 + f1 / 2.0F, centeredTextY(f3, f, DISCOUNT_FONT_RENDERER), Color.WHITE.getRGB());
-            }
-        });
     }
 
     @Override
@@ -135,11 +117,8 @@ public class AddAccountScreen extends GuiScreen implements InstanceAccess {
         short short1 = 140;
         byte b1 = 5;
         int j = this.width / 2 - ((i & 1) == 0 ? 105 * (i / 2) + 2 : (b0 + b1) * (i / 2) + b0 / 2);
-        this.menuButtons[0] = new MenuIconTextButton(0.0, 0.0, 0.0, 0.0, GAMEPASS_RUNNABLE, "SessionID/refID", XBOX_RESOURCE);
+        this.menuButtons[0] = new MenuIconTextButton(0.0, 0.0, 0.0, 0.0, CRACKED_RUNNABLE, "Cracked", CRACKED_RESOURCE);
         this.menuButtons[1] = new MenuIconTextButton(0.0, 0.0, 0.0, 0.0, MICROSOFT_RUNNABLE, "Microsoft", MICROSOFT_RESOURCE);
-        this.menuButtons[2] = new MenuIconTextButton(0.0, 0.0, 0.0, 0.0, CRACKED_RUNNABLE, "Cracked", CRACKED_RESOURCE);
-        this.menuButtons[3] = new MenuIconTextButton(0.0, 0.0, 0.0, 0.0, COOKIE_RUNNABLE, "Cookie", COOKIE_RESOURCE);
-        this.menuButtons[4] = new MenuIconTextButton(0.0, 0.0, 0.0, 0.0, LOCALTS_RUNNABLE, "Localts", LOCALTS_RESOURCE);
 
         for (MenuIconTextButton adi : this.menuButtons) {
             adi.setX(j);

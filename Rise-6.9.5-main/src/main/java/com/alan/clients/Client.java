@@ -9,7 +9,6 @@ import com.alan.clients.module.api.manager.ModuleManager;
 import com.alan.clients.newevent.Event;
 import com.alan.clients.newevent.bus.impl.EventBus;
 import com.alan.clients.script.ScriptManager;
-import com.alan.clients.security.NativeDecryptor;
 import com.alan.clients.security.SecurityFeature;
 import com.alan.clients.security.SecurityFeatureManager;
 import com.alan.clients.ui.click.standard.RiseClickGUI;
@@ -369,7 +368,6 @@ public enum Client
         minecraft.gameSettings.ciq = false;
         minecraft.gameSettings.chy = true;
         minecraft.gameSettings.chu = false;
-        NativeDecryptor.ok();
         this.n = new ProtectionManager();
         this.moduleManager = new ModuleManager();
         this.componentManager = new ComponentManager();

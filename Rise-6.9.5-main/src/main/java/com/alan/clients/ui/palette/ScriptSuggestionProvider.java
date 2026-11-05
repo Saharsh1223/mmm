@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 final class ScriptSuggestionProvider implements SuggestionProvider {
-    private static final String[] aBx = new String[]{"load", "reload", "unload", "disablesecurity", "enablesecurity", "download", "install", "folder"};
+    private static final String[] aBx = new String[]{"load", "reload", "unload", "enablesecurity", "folder"};
 
     ScriptSuggestionProvider() {
     }
@@ -28,7 +28,7 @@ final class ScriptSuggestionProvider implements SuggestionProvider {
             for (String s2 : aBx) {
                 String s3 = s2.toLowerCase(Locale.ROOT);
                 if (s1.isEmpty() || s3.startsWith(s1)) {
-                    arraylist.add(new Suggestion(s2, "Script action", "load/reload/unload/disablesecurity/enablesecurity/download/install/folder", s2, 0, true));
+                    arraylist.add(new Suggestion(s2, "Script action", "load/reload/unload/enablesecurity/folder", s2, 0, true));
                 }
             }
 
