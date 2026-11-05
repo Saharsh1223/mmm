@@ -16,7 +16,6 @@ public class Start {
         File file1 = gameDir != null && !gameDir.isEmpty()
                 ? new File(gameDir)
                 : new File(s2, ".minecraft/");
-        boolean flag = !System.getProperty("os.name").toLowerCase().contains("mac");
         Main.main(
             concat(
                 new String[]{
@@ -25,9 +24,9 @@ public class Start {
                     "--accessToken",
                     "0",
                     "--gameDir",
-                    flag ? new File(file1, ".").getAbsolutePath() : "",
+                    new File(file1, ".").getAbsolutePath(),
                     "--assetsDir",
-                    flag ? new File(file1, "assets/").getAbsolutePath() : "assets",
+                    new File(file1, "assets/").getAbsolutePath(),
                     "--assetIndex",
                     "1.8",
                     "--userProperties",
